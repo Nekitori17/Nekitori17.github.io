@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 * {
   padding: 0;
@@ -8,19 +8,19 @@
 
 body {
   width: 100vw;
-  height: min-content;
-  background: url('/assets/images/background.svg') repeat;
+  height: 100vh;
+  background: url("/assets/images/background.svg") repeat;
   background-position: 0;
-  background-size: 80%
 }
 
 div.container {
-  position: relative;
-  transition: all 0.5s cubic-bezier(0.67, 0, 0.37, 0);
-}
-
-.title {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.5, 0, 0.3, 0),
+    opacity 0.5s cubic-bezier(0.5, 0, 0.3, 0);
 }
 
 .header {
@@ -31,9 +31,13 @@ div.container {
   background: transparent;
   backdrop-filter: blur(2.5px);
   font-family: "Electrolize", Arial, sans-serif;
-  transition: all 0.2s;
-  z-index: 100;
-  user-select: none
+  transition: transform 0.2s;
+  z-index: 1000;
+  user-select: none;
+}
+
+.title {
+  display: none;
 }
 
 .navigation {
@@ -46,87 +50,96 @@ div.container {
 .navigation a {
   font-size: 0;
   color: dodgerblue;
-  transition: color 0.1s ease-in, all 0.25s ease-in;
+  transition: color 0.1s ease-in, transform 0.25s ease-in;
 }
 
 .navigation i {
-  font-size: 1.7rem;
+  font-size: 7vw;
 }
 
 .navigation a:hover {
-  color: #04FF35;
+  color: #04ff35;
 }
 
 .navigation .active {
-  background: linear-gradient(to right, #04FF35, #0C91FF);
-  -webkit-background-clip: text;
+  background: linear-gradient(
+    124deg,
+    rgb(140, 0, 255),
+    rgb(0, 76, 255),
+    rgb(4, 0, 255),
+    rgb(0, 255, 174),
+    rgb(0, 255, 242),
+    rgb(187, 255, 0),
+    rgb(94, 255, 0),
+    rgb(0, 255, 242),
+    rgb(0, 255, 174),
+    rgb(4, 0, 255),
+    rgb(0, 76, 255),
+    rgb(140, 0, 255)
+  );
+  background-clip: text;
+  background-size: 180% 460%;
   -webkit-text-fill-color: transparent;
+  animation: rainbow 5s ease infinite;
   transform: translateY(-50%) scale(1.25);
 }
 
 @media screen and (min-width: 786px) {
-  body {
-    background-size: 30%;
-  }
-
   .header {
-    display: flex;
+    display: grid;
     top: 0;
     height: 10px;
     width: 100vw;
     backdrop-filter: none;
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: 1fr 1fr;
   }
 
   .title {
-    width: 100%;
+    padding: 2vw;
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 25px;
-    left: 30px;
   }
 
   .title img {
-    height: 40px;
-    width: 40px;
+    height: 3vw;
+    width: 3vw;
   }
 
   .title h1 {
-    margin-left: 10px;
-    font-size: 1.5rem;
+    margin-left: 1vw;
+    font-size: 2vw;
     color: cadetblue;
   }
 
   .navigation {
+    padding: 2vw;
     display: flex;
-    align-items: center;
-    position: absolute;
-    top: 45px;
-    right: 30px;
+    justify-content: end;
   }
 
   .navigation a {
-    font-size: 1.5rem;
-    margin-left: 30px
+    font-size: 1.75vw;
+    margin-left: 3vw;
   }
 
   .navigation a i {
-    font-size: 1.25rem;
+    font-size: 1.75vw;
   }
 
   .navigation .active {
-    transform: scale(1.05);
+    font-weight: bolder;
+    transform: scale(1.1);
   }
 }
 
-@keyframes moveBackground {
+@keyframes rainbow {
   0% {
-    background-position: 0 0;
+    background-position: 0% 350%;
   }
-
+  50% {
+    background-position: 100% 0%;
+  }
   100% {
-    background-position: 200px 200px;
+    background-position: 0% 350%;
   }
 }

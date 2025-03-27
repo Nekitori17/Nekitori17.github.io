@@ -1,0 +1,11 @@
+{
+  "home": {
+    "fitWindow": true
+  },
+  "skill": {
+    "fitWindow": true
+  },
+  "project": {
+    "fitWindow": false
+  }
+}

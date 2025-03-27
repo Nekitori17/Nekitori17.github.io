@@ -2,121 +2,143 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 section {
+  width: 100%;
+  height: 100%;
   position: relative;
   color: white;
-  transform: translateY(10%);
 }
 
-.opening {
-  height: 100px;
-  width: 90vw;
-  border-left: 10px solid #39ffd5;
+section > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+}
+
+.card {
+  width: 85vw;
+  height: 10vh;
+  border-left: 1.5vw solid #39ffd5;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
-  position: relative;
   display: flex;
   align-items: center;
 }
 
 .user {
+  position: relative;
   margin-left: 10px;
 }
 
 .user .name {
   font-family: "JetBrains Mono", monospace;
   color: #4cffcf;
-  font-size: 1.6rem;
+  font-size: 6vw;
 }
 
 .user .username {
   font-family: "Quicksand", sans-serif;
   color: #4cfff6;
   opacity: 0.7;
-  font-size: 1rem;
+  font-size: 4.5vw;
 }
 
-.user .currentjob {
+.user .current-job {
   font-family: "Electrolize", sans-serif;
+  font-size: 4vw;
 }
 
-.opening .avatar {
+.card .avatar {
+  position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  position: absolute;
-  width: 90px;
-  box-shadow: 0 0 5px 0 #ff8c4c;
+  width: 20vw;
   border-radius: 10%;
+  box-shadow: 0 0 5px 0 #ff8c4c;
 }
 
-.userinfo {
+.user-info {
+  margin-top: 5vh;
   position: relative;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
   height: 45vh;
-  width: 90vw;
+  width: 87.5vw;
 }
 
-.userinfo .text-marquee {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #27ffe8;
+.user-info .text-marquee {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 42.5vh;
-  height: 20px;
-  overflow: hidden;
-  rotate: 90deg;
-  transform-origin: left bottom;
+  background-color: #27ffe8;
+  width: 5vw;
+  height: 45vh;
 }
 
-.userinfo .text-marquee p {
+.user-info .text-marquee .slider {
+  width: 45vh;
+  overflow: clip;
+  transform: translateX(-5%);
+  rotate: 90deg;
+  transform-origin: bottom left;
+}
+
+.user-info .text-marquee-track {
+  display: flex;
+  gap: 7.5vh;
+  width: max-content;
+  animation: marquee-move-text var(--speed, 10s) linear infinite
+    var(--direction, forwards);
+}
+
+.user-info .text-marquee p {
   font-family: "JetBrains Mono", monospace;
   font-weight: bold;
-  color: black;
+  font-size: 4vw;
+  color: rgb(0, 0, 0);
   white-space: nowrap;
-  padding: 0 2rem 0 2rem;
   letter-spacing: 1px;
-  animation: move-rtl 1000ms linear infinite;
 }
 
-.userinfo table {
+.user-info table {
+  position: absolute;
   border-collapse: collapse;
   position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-45%, -50%);
+  transform: translate(-40%, -50%);
   max-width: 90%;
   height: 75%;
 }
 
-.userinfo table td {
-  padding: 3% 20px 3% 0;
+.user-info table td {
+  padding: 0 20px 3% 0;
   font-family: "Electrolize", sans-serif;
-  font-size: 100%;
+  font-size: 4vw;
 }
 
-.userinfo table td i {
+.user-info table td i {
   color: #61e2d4;
-  font-size: 1.1rem;
+  font-size: 5vw;
 }
 
-.userinfo table td a {
+.user-info table td a {
   color: #27d4c2;
   text-decoration: none;
 }
 
-.coder_image {
+.coder-image {
   display: none;
 }
 
-.linksocial {
+@keyframes marquee-move-text {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.link-social {
   position: relative;
   left: 50%;
-  top: 12.5vh;
+  top: 7.5vh;
   transform: translateX(-50%);
   width: 80vw;
   height: 5vh;
@@ -127,171 +149,221 @@ section {
   border-bottom: 5px solid #24ffc8;
 }
 
-.linksocial a {
+.link-social a {
   color: #56fff6;
-  font-size: 1.5rem;
+  font-size: 6vw;
   user-select: none;
 }
 
-.linksocial .tooltip {
+.link-social .tooltip {
   position: absolute;
-  transform: translate(-37.5%, -100%);
+  transform: translate(-40%, -100%);
   opacity: 0;
-  background: rgb(27, 27, 27);
-  backdrop-filter: blur(2.5px);
-  padding: 8px;
-  border-left: 7px solid deepskyblue;
+  background: rgba(27, 27, 27, 0.8);
+  padding: 1vw;
+  border-left: 2vw solid deepskyblue;
   transition: all 0.2s ease-out;
 }
 
-.linksocial .tooltip .link {
-  user-select: none;
-  color: white;
-  font-family: "Electrolize";
-  font-size: 1rem;
-  text-decoration: none;
-}
-
-.linksocial .tooltip .link:hover {
-  background-color: transparent;
-}
-
-.linksocial div:hover > .tooltip {
-  transform: translate(-37.5%, -250%);
-  opacity: 1;
-}
-
-.linksocial .tooltip::before {
+.link-social .tooltip::before {
   content: "";
   position: absolute;
   background: linear-gradient(to bottom right, transparent 50%, white 50%);
-  width: 10px;
-  height: 10px;
-  top: 85%;
+  width: 2.5vw;
+  height: 2.5vw;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%) rotate(45deg);
 }
 
-.linksocial .facebook .tooltip {
-  transform: translate(-40%, -100%);
+.link-social .tooltip .link {
+  user-select: none;
+  color: white;
+  font-family: "Electrolize";
+  font-size: 4vw;
+  text-decoration: none;
 }
 
-.linksocial div.facebook:hover > .tooltip {
+.link-social .tooltip .link:hover {
+  background-color: transparent;
+}
+
+.link-social div:hover > .tooltip {
   transform: translate(-40%, -250%);
-  opacity: 0.75;
+  opacity: 1;
 }
 
-@keyframes move-rtl {
-  0% {
-    transform: translateX(0);
+@media screen and (min-width: 786px) {
+  section > div {
+    transform: translate(-50%, -55%);
   }
 
-  100% {
-    transform: translateX(-100%);
+  .user .name {
+    font-size: 4vw;
+  }
+
+  .user .username {
+    font-size: 3vw;
+  }
+
+  .user .current-job {
+    font-size: 3vw;
+  }
+
+  .card .avatar {
+    width: 15vw;
+  }
+
+  .user-info .text-marquee {
+    width: 3vw;
+  }
+
+  .user-info .text-marquee p {
+    font-size: 2.75vw;
+  }
+
+  .user-info table td {
+    font-size: 2.75vw;
+  }
+
+  .user-info table td i {
+    font-size: 3vw;
+  }
+
+  .link-social a {
+    font-size: 4vw;
+  }
+
+  .link-social .tooltip {
+    padding: 1vw;
+    border-left-width: 1vw;
+  }
+
+  .link-social .tooltip::before {
+    width: 2vw;
+    height: 2vw;
+  }
+
+  .link-social .tooltip .link {
+    font-size: 2.75vw;
   }
 }
 
-@media screen and (min-width: 768px) {
-  section {
-    top: 15vh
+@media screen and (min-width: 1024px) {
+  section > div {
+    transform: translate(-50%, -45%);
   }
 
-  .userinfo .text-marquee p {
-    font-size: 1.5rem;
-  }
-
-  .userinfo table td {
-    font-size: 125%;
-  }
-
-  .linksocial a {
-    font-size: 2rem;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  section {
-    transform: translateY(5%);
-  }
-
-  .opening {
-    height: 125px;
+  .card {
+    height: 130px;
     width: 50vw;
-    left: 30%;
+    left: 27.5%;
+    border-width: 0.75vw;
   }
 
   .user {
-    left: 150px;
+    left: 11.5vw;
     position: relative;
   }
 
   .user .name {
-    font-size: 3rem;
+    font-size: 3.5vw;
   }
 
   .user .username {
-    font-size: 2rem;
+    font-size: 2vw;
   }
 
-  .user .currentjob {
-    font-size: 1.2rem;
+  .user .current-job {
+    font-size: 1.25vw;
   }
 
-  .opening .avatar {
-    left: 25px;
-    width: 120px;
+  .card .avatar {
+    left: 1.5vw;
+    width: 9.5vw;
   }
 
-  .userinfo {
-    top: 10px;
-    left: 49.55%;
+  .user-info {
+    left: -1.5vw;
   }
 
-  .userinfo .text-marquee {
-    height: 15px;
+  .user-info .text-marquee {
+    width: 1.25vw;
+    height: 45vh;
   }
 
-  .userinfo .text-marquee p {
-    font-size: 0.85rem;
+  .user-info .text-marquee .slider {
+    width: 45vh;
   }
 
-  .userinfo table {
-    left: 50px;
-    transform: translateY(-50%);
+  .user-info .text-marquee p {
+    font-size: 1vw;
   }
 
-  .userinfo table td {
-    font-size: 80%;
+  .user-info table {
+    top: 50%;
+    left: 14vw;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    height: 70%;
   }
 
-  .coder_image {
+  .user-info table td {
+    font-size: 1vw;
+  }
+
+  .user-info table td i {
+    font-size: 1.25vw;
+  }
+
+  .coder-image {
     display: flex;
     position: absolute;
-    top: 35%;
-    right: -100%;
-    transform: translateY(-50%);
-    width: 40%;
-    animation: coder_show_up 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    top: 5%;
+    right: 0;
+    width: 45%;
+    animation: coder-show-up 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
   }
 
-  .linksocial {
-    top: 2vh;
-    left: 82.5%;
+  .link-social {
+    transform: translate(75%, -200%);
     width: 25vw;
     border-bottom: none;
   }
 
-  .linksocial a {
-    color: #00fff2d0;
+  .link-social a {
+    color: #56fff6;
+    font-size: 2.25vw;
+    user-select: none;
   }
 
-  @keyframes coder_show_up {
+  .link-social .tooltip {
+    position: absolute;
+    transform: translate(-37.5%, -100%);
+    padding: 0.5vw;
+    border-width: 0.5vw;
+  }
+
+  .link-social .tooltip::before {
+    width: 1vw;
+    height: 1vw;
+  }
+
+  .link-social .tooltip .link {
+    font-size: 1vw;
+  }
+
+  .link-social div:hover > .tooltip {
+    transform: translate(-37.5%, -270%);
+  }
+
+  @keyframes coder-show-up {
     0% {
       right: -100%;
     }
 
     100% {
-      right: 5%;
+      right: 0;
     }
   }
 }

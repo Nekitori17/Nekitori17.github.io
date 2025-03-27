@@ -7,7 +7,7 @@ setInterval(() => {
   };
 
   const currentTime = new Intl.DateTimeFormat('vi-VN', options).format(new Date());
-  const timerElement = document.querySelector(".userinfo table tr .timer");
+  const timerElement = document.querySelector(".user-info table tr .timer");
   if (timerElement) {
     timerElement.innerHTML = currentTime + " ";
   }
