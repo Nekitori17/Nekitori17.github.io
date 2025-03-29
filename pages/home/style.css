@@ -27,7 +27,6 @@ section > div {
 }
 
 .user {
-  position: relative;
   margin-left: 10px;
 }
 
@@ -54,6 +53,7 @@ section > div {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
+  aspect-ratio: 1/1;
   width: 20vw;
   border-radius: 10%;
   box-shadow: 0 0 5px 0 #ff8c4c;
@@ -62,7 +62,7 @@ section > div {
 .user-info {
   margin-top: 5vh;
   position: relative;
-  height: 45vh;
+  height: 40vh;
   width: 87.5vw;
 }
 
@@ -70,32 +70,28 @@ section > div {
   position: absolute;
   background-color: #27ffe8;
   width: 5vw;
-  height: 45vh;
-}
-
-.user-info .text-marquee .slider {
-  width: 45vh;
-  overflow: clip;
-  transform: translateX(-5%);
-  rotate: 90deg;
-  transform-origin: bottom left;
+  height: 40vh;
 }
 
 .user-info .text-marquee-track {
+  position: absolute;
+  width: 40vh;
   display: flex;
-  gap: 7.5vh;
-  width: max-content;
-  animation: marquee-move-text var(--speed, 10s) linear infinite
-    var(--direction, forwards);
+  overflow: hidden;
+  user-select: none;
+  rotate: 90deg;
+  transform: translateX(-5%);
+  transform-origin: bottom left;
 }
 
 .user-info .text-marquee p {
   font-family: "JetBrains Mono", monospace;
   font-weight: bold;
-  font-size: 4vw;
-  color: rgb(0, 0, 0);
+  color: black;
   white-space: nowrap;
+  padding: 0 5vh 0 5vh;
   letter-spacing: 1px;
+  animation: move-rtl 1s linear infinite;
 }
 
 .user-info table {
@@ -104,20 +100,20 @@ section > div {
   position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-40%, -50%);
-  max-width: 90%;
+  transform: translate(-45%, -50%);
+  max-width: 100%;
   height: 75%;
 }
 
 .user-info table td {
-  padding: 0 20px 3% 0;
+  padding: 0 2vw 0 0;
   font-family: "Electrolize", sans-serif;
-  font-size: 4vw;
+  font-size: 3.5vw;
 }
 
 .user-info table td i {
   color: #61e2d4;
-  font-size: 5vw;
+  font-size: 4vw;
 }
 
 .user-info table td a {
@@ -129,21 +125,25 @@ section > div {
   display: none;
 }
 
-@keyframes marquee-move-text {
-  to {
-    transform: translateX(-50%);
+@keyframes move-rtl {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
   }
 }
 
 .link-social {
   position: relative;
   left: 50%;
-  top: 7.5vh;
+  top: 5.5vh;
   transform: translateX(-50%);
   width: 80vw;
   height: 5vh;
   display: flex;
-  padding-bottom: 30px;
+  padding-bottom: 2.5vh;
   align-items: center;
   justify-content: space-around;
   border-bottom: 5px solid #24ffc8;
@@ -156,11 +156,11 @@ section > div {
 }
 
 .link-social .tooltip {
+  padding: 2% 1.5% 2% 1.5%;
   position: absolute;
   transform: translate(-40%, -100%);
   opacity: 0;
   background: rgba(27, 27, 27, 0.8);
-  padding: 1vw;
   border-left: 2vw solid deepskyblue;
   transition: all 0.2s ease-out;
 }
@@ -180,7 +180,7 @@ section > div {
   user-select: none;
   color: white;
   font-family: "Electrolize";
-  font-size: 4vw;
+  font-size: 3vw;
   text-decoration: none;
 }
 
@@ -199,42 +199,44 @@ section > div {
   }
 
   .user .name {
-    font-size: 4vw;
+    font-size: 3vh;
   }
 
   .user .username {
-    font-size: 3vw;
+    font-size: 2vh;
   }
 
   .user .current-job {
-    font-size: 3vw;
+    font-size: 2vh;
   }
 
   .card .avatar {
-    width: 15vw;
+    width: 10vh;
   }
 
   .user-info .text-marquee {
-    width: 3vw;
+    width: 2vh;
+
   }
 
   .user-info .text-marquee p {
-    font-size: 2.75vw;
+    font-size: 2.25vw;
   }
 
   .user-info table td {
-    font-size: 2.75vw;
+    font-size: 1.5vh;
   }
 
   .user-info table td i {
-    font-size: 3vw;
+    font-size: 2vh;
   }
 
   .link-social a {
-    font-size: 4vw;
+    font-size: 2.5vh;
   }
 
   .link-social .tooltip {
+    transform: translate(-40%, 100%);
     padding: 1vw;
     border-left-width: 1vw;
   }
@@ -245,7 +247,11 @@ section > div {
   }
 
   .link-social .tooltip .link {
-    font-size: 2.75vw;
+    font-size: 2vw;
+  }
+
+  .link-social div:hover > .tooltip {
+    transform: translate(-40%, -250%);
   }
 }
 
@@ -255,10 +261,10 @@ section > div {
   }
 
   .card {
-    height: 130px;
+    height: 17.5vh;
     width: 50vw;
     left: 27.5%;
-    border-width: 0.75vw;
+    border-width: 1vw;
   }
 
   .user {
@@ -284,16 +290,11 @@ section > div {
   }
 
   .user-info {
-    left: -1.5vw;
+    left: -1vw;
   }
 
   .user-info .text-marquee {
     width: 1.25vw;
-    height: 45vh;
-  }
-
-  .user-info .text-marquee .slider {
-    width: 45vh;
   }
 
   .user-info .text-marquee p {
@@ -319,7 +320,7 @@ section > div {
   .coder-image {
     display: flex;
     position: absolute;
-    top: 5%;
+    top: 2.5%;
     right: 0;
     width: 45%;
     animation: coder-show-up 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
@@ -332,29 +333,26 @@ section > div {
   }
 
   .link-social a {
-    color: #56fff6;
     font-size: 2.25vw;
-    user-select: none;
   }
-
+  
   .link-social .tooltip {
-    position: absolute;
-    transform: translate(-37.5%, -100%);
-    padding: 0.5vw;
-    border-width: 0.5vw;
+    padding: 2% 1.5% 2% 1.5%;
+    transform: translate(-40%, -100%);
+    border-left-width: 1vw;
   }
-
+  
   .link-social .tooltip::before {
     width: 1vw;
     height: 1vw;
   }
-
+  
   .link-social .tooltip .link {
     font-size: 1vw;
   }
-
+  
   .link-social div:hover > .tooltip {
-    transform: translate(-37.5%, -270%);
+    transform: translate(-40%, -250%);
   }
 
   @keyframes coder-show-up {
