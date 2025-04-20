@@ -1,14 +1,24 @@
-setInterval(() => {
-  const options = {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  };
+const options = {
+  timeZone: "Asia/Ho_Chi_Minh",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+};
 
-  const currentTime = new Intl.DateTimeFormat('vi-VN', options).format(new Date());
+const formatter = new Intl.DateTimeFormat("vi-VN", options);
+
+async function updateClock() {
   const timerElement = document.querySelector(".user-info table tr .timer");
-  if (timerElement) {
-    timerElement.innerHTML = currentTime + " ";
+
+  if (!timerElement) {
+    await delay(1000);
+    updateClock();
+    return;
   }
-}, 1000);
+
+  timerElement.textContent = formatter.format(new Date()) + " ";
+  await delay(1000);
+  updateClock();
+}
+
+updateClock();

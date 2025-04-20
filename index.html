@@ -18,13 +18,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preload" href="/favicon.ico" as="image" />
   </head>
-
   <body>
     <header class="header">
       <div class="title">
-        <img src="/favicon.ico" alt="logo.img" />
+        <img src="/favicon.ico" alt="Nekitori17 logo" />
         <h1>Nekitori17</h1>
       </div>
       <nav class="navigation">
@@ -35,10 +35,9 @@
         >
       </nav>
     </header>
-    <div class="container"></div>
+    <main class="container"></main>
+    <script type="module" src="/script.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/cdn_modules/gsap@3.12.5/gsap.min.js"></script>
   </body>
-  <script type="module" src="script.js"></script>
-  <script type="text/javascript" src="/js/window-time.js"></script>
-  <script src="/cdn_modules/gsap@3.12.5/gsap.min.js"></script>
-  <noscript>Ohh no. Your Browser Not Support JavaScript.Bruhhh</noscript>
 </html>

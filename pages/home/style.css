@@ -106,7 +106,7 @@ section > div {
 }
 
 .user-info table td {
-  padding: 0 2vw 0 0;
+  padding: 0 3vw 0 0;
   font-family: "Electrolize", sans-serif;
   font-size: 3.5vw;
 }
@@ -189,7 +189,7 @@ section > div {
 }
 
 .link-social div:hover > .tooltip {
-  transform: translate(-40%, -250%);
+  transform: translate(-40%, -275%);
   opacity: 1;
 }
 
@@ -237,21 +237,21 @@ section > div {
 
   .link-social .tooltip {
     transform: translate(-40%, 100%);
-    padding: 1vw;
+    padding: 0.5vw;
     border-left-width: 1vw;
   }
 
   .link-social .tooltip::before {
-    width: 2vw;
-    height: 2vw;
+    width: 1vw;
+    height: 1vw;
   }
 
   .link-social .tooltip .link {
-    font-size: 2vw;
+    font-size: 1vw;
   }
 
   .link-social div:hover > .tooltip {
-    transform: translate(-40%, -250%);
+    transform: translate(-40%, -275%);
   }
 }
 
@@ -303,7 +303,7 @@ section > div {
 
   .user-info table {
     top: 50%;
-    left: 14vw;
+    left: 15vw;
     transform: translate(-50%, -50%);
     max-width: 90%;
     height: 70%;
@@ -352,7 +352,7 @@ section > div {
   }
   
   .link-social div:hover > .tooltip {
-    transform: translate(-40%, -250%);
+    transform: translate(-40%, -275%);
   }
 
   @keyframes coder-show-up {

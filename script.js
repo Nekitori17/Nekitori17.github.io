@@ -48,7 +48,7 @@ const linkNavs = document.querySelectorAll(".header .navigation a");
 linkNavs.forEach((item) => {
   item.addEventListener("click", (event) => {
     const pageName = event.currentTarget.id;
-    if (window.location.hash.slice(1) === pageName) return;
+    if (window.location.hash.slice(1) == pageName) return;
 
     linkNavs.forEach((element) => {
       element.classList.remove("active");
@@ -71,7 +71,7 @@ window.addEventListener("hashchange", () => {
 
 async function loadPage(pageName) {
   const pageSrc = `/pages/${pageName}/index.html`;
-  const containerContent = document.querySelector("div.container");
+  const containerContent = document.querySelector("main.container");
 
   if (!containerContent.innerHTML) document.body.style.overflow = "hidden";
   containerContent.style.cssText = "transform: translateY(50%); opacity: 0";
@@ -88,38 +88,27 @@ async function loadPage(pageName) {
   );
 
   clearAutoLoadedScripts();
-  containerContent.addEventListener(
-    "transitionend",
-    () => {
-      containerContent.innerHTML = pageContent;
-      if (pagesConfig[pageName].fitWindow)
-        document.body.style.overflow = "hidden";
-      else document.body.style.overflow = "auto";
+  await delay(500);
+  containerContent.innerHTML = pageContent;
+  if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
+  else document.body.style.overflow = "auto";
 
-      containerContent.style.cssText = "transform: translateY(0); opacity: 1";
+  containerContent.style.cssText = "transform: translateY(0); opacity: 1";
 
-      const pageScript =
-        containerContent.querySelectorAll("script#pageScripts");
-      for (const script of pageScript) {
-        const newScript = document.createElement("script");
-        newScript.setAttribute("src", script.src);
-        newScript.setAttribute("type", script.type || "text/javascript");
-        newScript.setAttribute("id", "pageScripts");
+  const pageScript = containerContent.querySelectorAll("script#pageScripts");
+  for (const script of pageScript) {
+    const newScript = document.createElement("script");
+    newScript.setAttribute("src", script.src);
+    newScript.setAttribute("type", script.type || "text/javascript");
+    newScript.setAttribute("id", "pageScripts");
 
-        document.body.appendChild(newScript);
-        script.remove();
-      }
-    },
-    {
-      once: true,
-    }
-  );
+    document.body.appendChild(newScript);
+    script.remove();
+  }
   sessionStorage.setItem("pageSession", pageName);
 }
 
 function clearAutoLoadedScripts() {
-  TimeoutIntervalManager.clearAll();
-
   const existPageScript = document.querySelectorAll(`script#pageScript`);
   existPageScript.forEach((script) => script.remove());
 }

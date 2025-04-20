@@ -11,9 +11,10 @@ body {
   height: 100%;
   background: url("/assets/images/background.svg") repeat;
   background-position: 0;
+  overflow-x: hidden;
 }
 
-div.container {
+main.container {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +55,7 @@ div.container {
 }
 
 .navigation i {
-  font-size: 7vw;
+  font-size: 8vw;
 }
 
 .navigation a:hover {
@@ -84,7 +85,7 @@ div.container {
   transform: translateY(-50%) scale(1.25);
 }
 
-@media screen and (min-width: 786px) {
+@media screen and (min-width: 768px) {
   .header {
     display: grid;
     top: 0;
@@ -106,7 +107,7 @@ div.container {
 
   .title h1 {
     margin-left: 2.5%;
-    font-size: 2vw;
+    font-size: 1.8rem;
     color: cadetblue;
   }
 
@@ -117,17 +118,36 @@ div.container {
   }
 
   .navigation a {
-    font-size: 2vw;
-    margin-left: 3vw;
+    font-size: 1.4rem;
+    margin-left: 0.5rem;
+    padding: 0;
+  }
+  .navigation a::before {
+    content: none;
   }
 
   .navigation a i {
-    font-size: 1.75vw;
+    font-size: 1.3rem;
   }
 
   .navigation .active {
     font-weight: bolder;
     transform: scale(1.1);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .title h1 {
+    font-size: 2rem;
+  }
+
+  .navigation a {
+    font-size: 1.8rem;
+    margin-left: 2rem;
+  }
+
+  .navigation a i {
+    font-size: 1.4rem;
   }
 }
 
