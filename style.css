@@ -11,6 +11,7 @@ body {
   height: 100%;
   background: url("/assets/images/background.svg") repeat;
   background-position: 0;
+  transition: color 0.5 ease-in-out;
 }
 
 main.container {
@@ -130,7 +131,7 @@ main.container {
   }
   
   .navigation a {
-    margin-right: 2rem;
+    margin-left: 2rem;
   }
 
   .navigation a::before {
@@ -151,7 +152,7 @@ main.container {
   .navigation a {
     font-size: 1.5rem;
     white-space: nowrap;
-    margin-right: 1.25rem;
+    margin-left: 1.25rem;
   }
 }
 
