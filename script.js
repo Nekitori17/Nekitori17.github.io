@@ -1,3 +1,12 @@
+const character = sessionStorage.getItem("character");
+if (!character) {
+  sessionStorage.setItem("character", "nekitori17");
+  window.location.reload();
+}
+document
+  .querySelector("link#color-palette")
+  .setAttribute("href", `/css/palettes/${character}.css`);
+
 const DEFAULT_PAGE = "home";
 const MAX_MOBILE_WIDTH = 786;
 
@@ -11,7 +20,7 @@ window.onscroll = () => {
   }
 };
 
-const BASE_SPEED = 30;
+const BASE_SPEED = 40;
 const BASE_WIDTH = 412;
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.backgroundSize = `${-0.05 * window.innerWidth + 100}%`;
@@ -73,7 +82,13 @@ async function loadPage(pageName) {
   const pageSrc = `/pages/${pageName}/index.html`;
   const containerContent = document.querySelector("main.container");
 
+  const pageContent = await fetch(pageSrc).then((res) => res.text());
+  const pagesConfig = await fetch("/pages/pagesConfig.json").then((res) =>
+    res.json()
+  );
+
   if (!containerContent.innerHTML) document.body.style.overflow = "hidden";
+  if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
   containerContent.style.cssText = "transform: translateY(50%); opacity: 0";
 
   const headerTitle = `Nekitori17 - ${
@@ -82,18 +97,11 @@ async function loadPage(pageName) {
   document.title = headerTitle;
   document.querySelector(".title h1").innerText = headerTitle;
 
-  const pageContent = await fetch(pageSrc).then((res) => res.text());
-  const pagesConfig = await fetch("/pages/pagesConfig.json").then((res) =>
-    res.json()
-  );
-
   clearAutoLoadedScripts();
   await delay(500);
   containerContent.innerHTML = pageContent;
   if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
   else document.body.style.overflow = "auto";
-
-  containerContent.style.cssText = "transform: translateY(0); opacity: 1";
 
   const pageScript = containerContent.querySelectorAll("script#pageScripts");
   for (const script of pageScript) {
@@ -106,9 +114,11 @@ async function loadPage(pageName) {
     script.remove();
   }
   sessionStorage.setItem("pageSession", pageName);
+
+  containerContent.style.cssText = "transform: translateY(0); opacity: 1";
 }
 
 function clearAutoLoadedScripts() {
-  const existPageScript = document.querySelectorAll(`script#pageScript`);
+  const existPageScript = document.querySelectorAll("script#pageScripts");
   existPageScript.forEach((script) => script.remove());
 }
