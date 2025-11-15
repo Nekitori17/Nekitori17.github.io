@@ -2,10 +2,16 @@
   "home": {
     "fitWindow": true
   },
-  "skill": {
+  "works": {
+    "fitWindow": false
+  },
+  "skills": {
     "fitWindow": true
   },
-  "project": {
+  "projects": {
+    "fitWindow": false
+  },
+  "about": {
     "fitWindow": false
   }
 }
