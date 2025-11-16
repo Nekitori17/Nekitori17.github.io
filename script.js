@@ -1,14 +1,18 @@
-const character = sessionStorage.getItem("character");
-if (!character) {
-  sessionStorage.setItem("character", "nekitori17");
-  window.location.reload();
-}
-document
-  .querySelector("link#color-palette")
-  .setAttribute("href", `/css/palettes/${character}.css`);
-
 const DEFAULT_PAGE = "home";
 const MAX_MOBILE_WIDTH = 786;
+
+const CHARACTERS = {
+  0: {
+    name: "Nekitori17",
+    palette: "nekitori17",
+    hideElements: ["nav a#works"],
+  },
+  1: {
+    name: "Plinkatsu",
+    palette: "plinkatsu",
+    hideElements: ["nav a#projects"],
+  },
+};
 
 let prevScrollPos = window.pageYOffset;
 window.onscroll = () => {
@@ -20,9 +24,67 @@ window.onscroll = () => {
   }
 };
 
+let currentPage = DEFAULT_PAGE;
+let currentCharacter = parseInt(sessionStorage.getItem("character-switch")) || 0;
+
+function initializeCharacter() {
+  const character = CHARACTERS[currentCharacter];
+  
+  document
+    .querySelector("link#color-palette")
+    .setAttribute("href", `/css/palettes/${character.palette}.css`);
+  
+  updateTitles();
+  toggleCharacterElements();
+}
+
+function updateTitles() {
+  const character = CHARACTERS[currentCharacter];
+  const pageTitle = currentPage.charAt(0).toUpperCase() + currentPage.slice(1);
+  const fullTitle = `${character.name} - ${pageTitle}`;
+  
+  document.title = fullTitle;
+  document.querySelector(".title h1").innerText = fullTitle;
+}
+
+function toggleCharacterElements() {
+  const character = CHARACTERS[currentCharacter];
+  
+  Object.values(CHARACTERS).forEach((char) => {
+    char.hideElements.forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        el.style.display = "";
+      });
+    });
+  });
+  
+  character.hideElements.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((el) => {
+      el.style.display = "none";
+    });
+  });
+}
+
+EventBus.on("switchCharacter", () => {
+  currentCharacter = currentCharacter === 0 ? 1 : 0;
+  
+  sessionStorage.setItem("character-switch", currentCharacter);
+  
+  const character = CHARACTERS[currentCharacter];
+  
+  document
+    .querySelector("link#color-palette")
+    .setAttribute("href", `/css/palettes/${character.palette}.css`);
+  
+  updateTitles();
+  toggleCharacterElements();
+});
+
 const BASE_SPEED = 40;
 const BASE_WIDTH = 412;
 window.addEventListener("DOMContentLoaded", () => {
+  initializeCharacter();
+  
   document.body.style.backgroundSize = `${-0.05 * window.innerWidth + 100}%`;
   gsap.to(document.body, {
     duration: (BASE_SPEED / BASE_WIDTH) * window.innerWidth,
@@ -79,6 +141,8 @@ window.addEventListener("hashchange", () => {
 });
 
 async function loadPage(pageName) {
+  currentPage = pageName;
+
   const pageSrc = `/pages/${pageName}/index.html`;
   const containerContent = document.querySelector("main.container");
 
@@ -91,17 +155,16 @@ async function loadPage(pageName) {
   if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
   containerContent.style.cssText = "transform: translateY(50%); opacity: 0";
 
-  const headerTitle = `Nekitori17 - ${
-    pageName.charAt(0).toUpperCase() + pageName.slice(1)
-  }`;
-  document.title = headerTitle;
-  document.querySelector(".title h1").innerText = headerTitle;
+  updateTitles();
 
   clearAutoLoadedScripts();
   await delay(500);
   containerContent.innerHTML = pageContent;
+  
   if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
   else document.body.style.overflow = "auto";
+
+  toggleCharacterElements();
 
   const pageScript = containerContent.querySelectorAll("script#pageScripts");
   for (const script of pageScript) {
@@ -113,6 +176,7 @@ async function loadPage(pageName) {
     document.body.appendChild(newScript);
     script.remove();
   }
+
   sessionStorage.setItem("pageSession", pageName);
 
   containerContent.style.cssText = "transform: translateY(0); opacity: 1";

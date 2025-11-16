@@ -1,3 +1,16 @@
 :root {
-  --test: 7px
+  --title-page: cadetblue;
+
+  --header-primary: #4cffcf;
+  --header-secondary: #28c5bd;
+
+  --link: dodgerblue;
+  --link-hover: #04ff35;
+
+  --dot-blur: rgba(0, 255, 149, 0.25);
+
+  --gradient-1: #8c00ff;
+  --gradient-2: #0400ff;
+  --gradient-3: #00fff2;
+  --gradient-4: #bbff00;
 }

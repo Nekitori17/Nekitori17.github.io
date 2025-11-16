@@ -1,24 +1,8 @@
-const options = {
-  timeZone: "Asia/Ho_Chi_Minh",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-};
-
-const formatter = new Intl.DateTimeFormat("vi-VN", options);
-
-async function updateClock() {
-  const timerElement = document.querySelector(".user-info table tr .timer");
-
-  if (!timerElement) {
-    await delay(1000);
-    updateClock();
-    return;
+(async () => {
+  for (let i = 1; i <= 10; i++) {
+    EventBus.emit('switchCharacter');
+    console.log(`Switch #${i}`);
+    await delay(2000);
   }
-
-  timerElement.textContent = formatter.format(new Date()) + " ";
-  await delay(1000);
-  updateClock();
-}
-
-updateClock();
+  console.log('Test completed!');
+})();

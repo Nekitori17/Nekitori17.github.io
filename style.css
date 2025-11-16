@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 }
 
 body {
@@ -11,7 +12,6 @@ body {
   height: 100%;
   background: url("/assets/images/background.svg") repeat;
   background-position: 0;
-  transition: color 0.5 ease-in-out;
 }
 
 main.container {
@@ -51,7 +51,7 @@ main.container {
 
 .navigation a {
   font-size: 0;
-  color: dodgerblue;
+  color: var(--link);
   transition: color 0.1s ease-in, transform 0.25s ease-in;
 }
 
@@ -60,24 +60,20 @@ main.container {
 }
 
 .navigation a:hover {
-  color: #04ff35;
+  color: var(--link-hover);
 }
 
 .navigation .active {
   background: linear-gradient(
     124deg,
-    rgb(140, 0, 255),
-    rgb(0, 76, 255),
-    rgb(4, 0, 255),
-    rgb(0, 255, 174),
-    rgb(0, 255, 242),
-    rgb(187, 255, 0),
-    rgb(94, 255, 0),
-    rgb(0, 255, 242),
-    rgb(0, 255, 174),
-    rgb(4, 0, 255),
-    rgb(0, 76, 255),
-    rgb(140, 0, 255)
+    var(--gradient-1),
+    var(--gradient-2),
+    var(--gradient-3),
+    var(--gradient-4),
+    var(--gradient-4),
+    var(--gradient-3),
+    var(--gradient-2),
+    var(--gradient-1)
   );
   background-clip: text;
   background-size: 150% 500%;
@@ -88,12 +84,29 @@ main.container {
 
 .dot-blur {
   position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -65%);
+  width: 100%;
+  height: 100%;
+}
+
+.dot-blur div {
+  position: fixed;
   width: 150vw;
   height: 50vw;
-  background: radial-gradient(closest-side, rgba(0, 255, 149, 0.25),  rgba(0, 0, 0, 0))
+  backdrop-filter: blur(1px);
+  background: radial-gradient(closest-side, var(--dot-blur),  rgba(0, 0, 0, 0))
+}
+
+.dot-blur-1 {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -70%);
+}
+
+.dot-blur-2 {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 80%);
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -121,7 +134,7 @@ main.container {
   .title h1 {
     margin-left: 2.5%;
     font-size: 1.5rem;
-    color: cadetblue;
+    color: var(--title-page);
   }
 
   .navigation {
@@ -145,6 +158,14 @@ main.container {
   .navigation .active {
     font-weight: bolder;
     transform: scale(1.1);
+  }
+
+  .dot-blur-1 {
+    display: none;
+  }
+
+  .dot-blur-2 {
+    display: block;
   }
 }
 

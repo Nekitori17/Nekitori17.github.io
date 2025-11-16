@@ -1,3 +1,16 @@
 :root {
-  --test: 7px
+  --title-page: rgb(206, 99, 12);
+
+  --header-primary: #ffb14c;
+  --header-secondary: #ff7300;
+
+  --link: #db4242;
+  --link-hover: #f0ff65;
+
+  --dot-blur: rgba(255, 153, 0, 0.25);
+
+  --gradient-1: #ff5100;
+  --gradient-2: #ff8800;
+  --gradient-3: #fbff00;
+  --gradient-4: #00ffaa;
 }
