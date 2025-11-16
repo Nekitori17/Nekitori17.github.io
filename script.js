@@ -25,15 +25,16 @@ window.onscroll = () => {
 };
 
 let currentPage = DEFAULT_PAGE;
-let currentCharacter = parseInt(sessionStorage.getItem("character-switch")) || 0;
+let currentCharacter =
+  parseInt(sessionStorage.getItem("character-switch")) || 0;
 
 function initializeCharacter() {
   const character = CHARACTERS[currentCharacter];
-  
+
   document
     .querySelector("link#color-palette")
     .setAttribute("href", `/css/palettes/${character.palette}.css`);
-  
+
   updateTitles();
   toggleCharacterElements();
 }
@@ -42,14 +43,14 @@ function updateTitles() {
   const character = CHARACTERS[currentCharacter];
   const pageTitle = currentPage.charAt(0).toUpperCase() + currentPage.slice(1);
   const fullTitle = `${character.name} - ${pageTitle}`;
-  
+
   document.title = fullTitle;
   document.querySelector(".title h1").innerText = fullTitle;
 }
 
 function toggleCharacterElements() {
   const character = CHARACTERS[currentCharacter];
-  
+
   Object.values(CHARACTERS).forEach((char) => {
     char.hideElements.forEach((selector) => {
       document.querySelectorAll(selector).forEach((el) => {
@@ -57,7 +58,7 @@ function toggleCharacterElements() {
       });
     });
   });
-  
+
   character.hideElements.forEach((selector) => {
     document.querySelectorAll(selector).forEach((el) => {
       el.style.display = "none";
@@ -67,15 +68,15 @@ function toggleCharacterElements() {
 
 EventBus.on("switchCharacter", () => {
   currentCharacter = currentCharacter === 0 ? 1 : 0;
-  
+
   sessionStorage.setItem("character-switch", currentCharacter);
-  
+
   const character = CHARACTERS[currentCharacter];
-  
+
   document
     .querySelector("link#color-palette")
     .setAttribute("href", `/css/palettes/${character.palette}.css`);
-  
+
   updateTitles();
   toggleCharacterElements();
 });
@@ -84,7 +85,7 @@ const BASE_SPEED = 40;
 const BASE_WIDTH = 412;
 window.addEventListener("DOMContentLoaded", () => {
   initializeCharacter();
-  
+
   document.body.style.backgroundSize = `${-0.05 * window.innerWidth + 100}%`;
   gsap.to(document.body, {
     duration: (BASE_SPEED / BASE_WIDTH) * window.innerWidth,
@@ -147,12 +148,9 @@ async function loadPage(pageName) {
   const containerContent = document.querySelector("main.container");
 
   const pageContent = await fetch(pageSrc).then((res) => res.text());
-  const pagesConfig = await fetch("/pages/pagesConfig.json").then((res) =>
-    res.json()
-  );
 
   if (!containerContent.innerHTML) document.body.style.overflow = "hidden";
-  if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
+
   containerContent.style.cssText = "transform: translateY(50%); opacity: 0";
 
   updateTitles();
@@ -160,9 +158,6 @@ async function loadPage(pageName) {
   clearAutoLoadedScripts();
   await delay(500);
   containerContent.innerHTML = pageContent;
-  
-  if (pagesConfig[pageName].fitWindow) document.body.style.overflow = "hidden";
-  else document.body.style.overflow = "auto";
 
   toggleCharacterElements();
 
