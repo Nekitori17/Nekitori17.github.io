@@ -150,7 +150,7 @@ async function loadPage(pageName) {
   const pageContent = await fetch(pageSrc).then((res) => res.text());
 
   document.body.style.overflow = "hidden";
-  containerContent.style.cssText = "transform: translateY(50%); opacity: 0";
+  containerContent.style.cssText = "opacity: 0";
 
   updateTitles();
 
@@ -173,7 +173,7 @@ async function loadPage(pageName) {
 
   sessionStorage.setItem("pageSession", pageName);
 
-  containerContent.style.cssText = "transform: translateY(0); opacity: 1";
+  containerContent.style.cssText = "opacity: 1";
 
   await delay(500);
   document.body.style.overflow = "auto";
