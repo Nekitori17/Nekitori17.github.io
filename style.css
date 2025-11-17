@@ -51,7 +51,7 @@ main.container {
 .navigation a {
   font-size: 0;
   color: var(--link);
-  transition: color 0.1s ease-in, transform 0.25s ease-in;
+  transition: transform 0.25s ease-in;
 }
 
 .navigation i {
