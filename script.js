@@ -160,11 +160,11 @@ async function loadPage(pageName) {
 
   toggleCharacterElements();
 
-  const pageScript = containerContent.querySelectorAll("script#pageScripts");
+  const pageScript = containerContent.querySelectorAll("script");
   for (const script of pageScript) {
     const newScript = document.createElement("script");
     newScript.setAttribute("src", script.src);
-    newScript.setAttribute("type", script.type || "text/javascript");
+    newScript.setAttribute("type", "module");
     newScript.setAttribute("id", "pageScripts");
 
     document.body.appendChild(newScript);
