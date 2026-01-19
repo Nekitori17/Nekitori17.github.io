@@ -9,10 +9,71 @@
     color 0.25s ease-in-out;
 }
 
+html,
 body {
   width: 100%;
   height: 100%;
-  background-position: 0;
+}
+
+body {
+  background-color: #161616;
+  background-image: url("/assets/images/pattern.svg");
+  background-repeat: repeat;
+  background-size: 
+    clamp(200px, 40vw, 320px) 
+    clamp(200px, 40vw, 320px);
+  animation: bg-pattern-move 140s linear infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/assets/images/noise.svg") repeat;
+  background-size: 
+    clamp(150px, 30vw, 250px) 
+    clamp(150px, 30vw, 250px);
+  opacity: 1;
+
+  pointer-events: none;
+  z-index: 3;
+
+  animation: bg-noise-move 60s linear infinite;
+
+  mix-blend-mode: soft-light;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(120, 180, 255, 0.06),
+    rgba(0, 0, 0, 0.65)
+  );
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes bg-pattern-move {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes bg-noise-move {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 200% 200%;
+  }
 }
 
 main.container {
@@ -82,7 +143,31 @@ main.container {
   transform: translateY(-50%) scale(1.25);
 }
 
+@keyframes rainbow {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 200%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 @media screen and (min-width: 768px) {
+  body {
+    background-size: 
+      clamp(250px, 35vw, 320px) 
+      clamp(250px, 35vw, 320px);
+  }
+
+  body::before {
+    background-size: 
+      clamp(180px, 25vw, 250px) 
+      clamp(180px, 25vw, 250px);
+  }
+
   .header {
     top: 0;
     display: flex;
@@ -135,6 +220,14 @@ main.container {
 }
 
 @media screen and (min-width: 1024px) {
+  body {
+    background-size: 320px 320px;
+  }
+
+  body::before {
+    background-size: 250px 250px;
+  }
+
   .navigation a {
     font-size: 1.5rem;
     white-space: nowrap;
@@ -142,14 +235,8 @@ main.container {
   }
 }
 
-@keyframes rainbow {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 200%;
-  }
-  100% {
-    background-position: 0% 0%;
+@media screen and (min-width: 1440px) {
+  body {
+    background-size: 320px 320px;
   }
 }

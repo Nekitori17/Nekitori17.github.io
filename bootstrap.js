@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", (ev) => {
     const container = document.querySelector("main.container");
 
     initRouter(container);
+
     initNavigationBar();
     initCharacter();
   } catch (error) {
