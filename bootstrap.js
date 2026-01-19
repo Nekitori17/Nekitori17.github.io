@@ -2,6 +2,7 @@ import "./js/core/managers/index.js";
 
 import { initRouter } from "./js/core/router/index.js";
 import initNavigationBar from "./js/features/navigationBar.js";
+import { initCharacter } from "./js/features/characterSwitch.js";
 
 window.addEventListener("DOMContentLoaded", (ev) => {
   try {
@@ -10,6 +11,7 @@ window.addEventListener("DOMContentLoaded", (ev) => {
 
     initRouter(container);
     initNavigationBar();
+    initCharacter();
   } catch (error) {
     console.error(error);
   }

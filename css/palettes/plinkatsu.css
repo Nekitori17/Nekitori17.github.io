@@ -1,16 +1,14 @@
 :root {
-  --title-page: rgb(206, 99, 12);
+  --title-page: #ff6a00;
 
-  --header-primary: #ffb14c;
-  --header-secondary: #ff7300;
+  --header-primary: #ffb000;
+  --header-secondary: #ff5a00;
 
-  --link: #db4242;
-  --link-hover: #f0ff65;
+  --link: #ff2e2e;
+  --link-hover: #f6ff00;
 
-  --dot-blur: rgba(255, 153, 0, 0.25);
-
-  --gradient-1: #ff5100;
-  --gradient-2: #ff8800;
-  --gradient-3: #fbff00;
-  --gradient-4: #00ffaa;
+  --gradient-1: #ff3c00;
+  --gradient-2: #ff7a00;
+  --gradient-3: #fff200;
+  --gradient-4: #00ffc8;
 }
