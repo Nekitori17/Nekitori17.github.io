@@ -8,11 +8,13 @@ window.addEventListener("DOMContentLoaded", (ev) => {
   try {
     /**@type {HTMLElement | null} */
     const container = document.querySelector("main.container");
-
     initRouter(container);
 
     initNavigationBar();
-    initCharacter();
+    initCharacter(
+      document.querySelector(".header .title h1"),
+      document.querySelector(".header nav.navigation"),
+    );
   } catch (error) {
     console.error(error);
   }

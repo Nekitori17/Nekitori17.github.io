@@ -1,14 +1,11 @@
 export default {
+  DEFAULT_CHARACTER: "nekitori17",
   CHARACTERS: {
-    0: {
-      name: "Nekitori17",
-      palette: "nekitori17",
-      hideElements: ["nav a#works"],
+    nekitori17: {
+      hideNavLinks: ["works"],
     },
-    1: {
-      name: "Plinkatsu",
-      palette: "plinkatsu",
-      hideElements: ["nav a#projects"],
+    plinkatsu: {
+      hideNavLinks: ["works"],
     },
   },
 };
