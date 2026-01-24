@@ -5,7 +5,7 @@ export default {
       hideNavLinks: ["works"],
     },
     plinkatsu: {
-      hideNavLinks: ["works"],
+      hideNavLinks: ["projects"],
     },
   },
 };
