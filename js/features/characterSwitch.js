@@ -105,3 +105,7 @@ function isValidCharacter(character) {
 function getFallbackCharacter() {
   return /** @type {Character} */ (Object.keys(config.CHARACTERS)[0]);
 }
+
+export function getCurrentCharacter() {
+  return getInitialCharacter();
+}
