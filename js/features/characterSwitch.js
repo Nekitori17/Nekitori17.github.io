@@ -5,54 +5,62 @@ import { initTitleUpdater, setTitleNameFormat } from "./titleUpdater.js";
 import { toSpaceCase } from "../core/utils/translateCase.js";
 
 /**
- * @typedef {"nekitori17" | "plinkatsu"} Character
+ * @typedef {keyof typeof config.CHARACTERS} Character
  */
+
+const CHARACTER_STORAGE_KEY = "character";
 
 /**
- * @param {HTMLElement | null} titleELement
+ * @param {HTMLElement | null} titleElement
  * @param {HTMLElement | null} navBarElement
  */
-export function initCharacter(titleELement, navBarElement) {
-  /** @type {Character} */
-  const currentCharacterSession = (() => {
-    /**@type {Character} */
-    const DEFAULT_CHARACTER =
-      config.DEFAULT_CHARACTER == "nekitori17" ||
-      config.DEFAULT_CHARACTER == "plinkatsu"
-        ? config.DEFAULT_CHARACTER
-        : "nekitori17";
+export function initCharacter(titleElement, navBarElement) {
+  if (titleElement) initTitleUpdater(titleElement);
+  else console.warn("Title element not found, title updater skipped.");
 
-    const characterSession = window.sessionStorage.getItem("character");
-    return characterSession == "nekitori17" || characterSession == "plinkatsu"
-      ? characterSession
-      : DEFAULT_CHARACTER;
-  })();
-
-  if (titleELement) initTitleUpdater(titleELement);
-  else
-    console.warn(
-      "Title element not found, title updater will not be initialized.",
-    );
-
-  setSiteNameFormat(`${toSpaceCase(currentCharacterSession)} - %siteName`);
-  setTitleNameFormat(`${toSpaceCase(currentCharacterSession)} - %titleName`);
-  hideElementByCharacter(currentCharacterSession, navBarElement);
-  loadPalette(currentCharacterSession);
+  const character = getInitialCharacter();
+  applyCharacter(character, navBarElement);
 
   window.Manager.EventBus.on(
     "characterChanged",
-    /** @param {Character} character */
+    /** @param {unknown} character */
     (character) => {
-      if (character !== "nekitori17" && character !== "plinkatsu") return;
+      if (!isValidCharacter(character)) return;
 
-      window.sessionStorage.setItem("character", character);
-
-      setSiteNameFormat(`${toSpaceCase(character)} - %siteName`);
-      setTitleNameFormat(`${toSpaceCase(character)} - %titleName`);
-      hideElementByCharacter(character, navBarElement);
-      loadPalette(character);
+      persistCharacter(character);
+      applyCharacter(character, navBarElement);
     },
   );
+}
+
+/**
+ * @returns {Character}
+ */
+function getInitialCharacter() {
+  const fromSession = window.sessionStorage.getItem(CHARACTER_STORAGE_KEY);
+
+  if (isValidCharacter(fromSession)) {
+    return fromSession;
+  }
+
+  if (isValidCharacter(config.DEFAULT_CHARACTER)) {
+    return config.DEFAULT_CHARACTER;
+  }
+
+  return getFallbackCharacter();
+}
+
+/**
+ * @param {Character} character
+ * @param {HTMLElement | null} navBarElement
+ */
+function applyCharacter(character, navBarElement) {
+  const displayName = toSpaceCase(character);
+
+  setSiteNameFormat(`${displayName} - %siteName`);
+  setTitleNameFormat(`${displayName} - %titleName`);
+  hideElementByCharacter(character, navBarElement);
+  loadPalette(character);
 }
 
 /**
@@ -60,19 +68,40 @@ export function initCharacter(titleELement, navBarElement) {
  * @param {HTMLElement | null} navBarElement
  */
 function hideElementByCharacter(character, navBarElement) {
-  if (!navBarElement) return console.warn("navBarElement not found");
+  if (!navBarElement) {
+    console.warn("navBarElement not found, skip hideElementByCharacter.");
+    return;
+  }
 
+  const { hideNavLinks = [] } = config.CHARACTERS[character] ?? {};
   const navLinks = navBarElement.querySelectorAll(".navigation a");
 
   navLinks.forEach((link) => {
     if (!(link instanceof HTMLElement)) return;
-    const linkName = link.id;
-    const characterConfig = config.CHARACTERS[character];
 
-    if (characterConfig && characterConfig.hideNavLinks.includes(linkName)) {
-      link.style.display = "none";
-    } else {
-      link.style.display = "block";
-    }
+    const key = link.id;
+    link.classList.toggle("hidden", hideNavLinks.includes(key));
   });
+}
+
+/**
+ * @param {Character} character
+ */
+function persistCharacter(character) {
+  window.sessionStorage.setItem(CHARACTER_STORAGE_KEY, character);
+}
+
+/**
+ * @param {unknown} character
+ * @returns {character is Character}
+ */
+function isValidCharacter(character) {
+  return typeof character === "string" && character in config.CHARACTERS;
+}
+
+/**
+ * @returns {Character}
+ */
+function getFallbackCharacter() {
+  return /** @type {Character} */ (Object.keys(config.CHARACTERS)[0]);
 }

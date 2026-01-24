@@ -19,9 +19,7 @@ body {
   background-color: var(--background-color);
   background-image: url("/assets/images/pattern.svg");
   background-repeat: repeat;
-  background-size: 
-    clamp(200px, 40vw, 320px) 
-    clamp(200px, 40vw, 320px);
+  background-size: clamp(200px, 40vw, 320px) clamp(200px, 40vw, 320px);
   animation: bg-pattern-move 140s linear infinite;
 }
 
@@ -30,9 +28,7 @@ body::before {
   position: fixed;
   inset: 0;
   background: url("/assets/images/noise.svg") repeat;
-  background-size: 
-    clamp(150px, 30vw, 250px) 
-    clamp(150px, 30vw, 250px);
+  background-size: clamp(150px, 30vw, 250px) clamp(150px, 30vw, 250px);
   opacity: 1;
 
   pointer-events: none;
@@ -116,6 +112,10 @@ main.container {
   transition: transform 0.25s ease-in;
 }
 
+.navigation a.hidden {
+  display: none;
+}
+
 .navigation i {
   font-size: 6vw;
 }
@@ -157,15 +157,11 @@ main.container {
 
 @media screen and (min-width: 768px) {
   body {
-    background-size: 
-      clamp(250px, 35vw, 320px) 
-      clamp(250px, 35vw, 320px);
+    background-size: clamp(250px, 35vw, 320px) clamp(250px, 35vw, 320px);
   }
 
   body::before {
-    background-size: 
-      clamp(180px, 25vw, 250px) 
-      clamp(180px, 25vw, 250px);
+    background-size: clamp(180px, 25vw, 250px) clamp(180px, 25vw, 250px);
   }
 
   .header {
