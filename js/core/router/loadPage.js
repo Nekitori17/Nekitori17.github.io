@@ -1,3 +1,4 @@
+import { run } from "../lifecycle/registry.js";
 import delay from "./../utils/delay.js";
 
 /**@type {AbortController | null} */
@@ -16,11 +17,6 @@ export async function loadPage(pageName, container) {
   const pageSrc = `/pages/${pageName}/index.html`;
 
   try {
-    document.body.style.overflow = "hidden";
-    container.style.opacity = "0";
-
-    clearAutoLoadedScripts();
-
     const res = await fetch(pageSrc, {
       signal: pageAbortController.signal,
       cache: "no-store",
@@ -32,8 +28,13 @@ export async function loadPage(pageName, container) {
 
     const pageContent = await res.text();
 
+    document.body.style.overflow = "hidden";
+    container.style.opacity = "0";
+
     await delay(300);
 
+    run("unmounted");
+    clearAutoLoadedScripts();
     container.replaceChildren();
 
     const tpl = document.createElement("template");
@@ -56,11 +57,14 @@ export async function loadPage(pageName, container) {
     });
 
     container.appendChild(tpl.content);
+    run("mounted");
 
     sessionStorage.setItem("pageSession", pageName);
 
     container.style.opacity = "1";
     await delay(300);
+
+    run("afterEnter")
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") return;
 
