@@ -19,9 +19,9 @@ export function register(type, cb) {
 
 /**
  * @param {LifecycleType} type
- * @param {any | null} ctx
+ * @param {any} ctx
  */
-export function run(type, ctx) {
+export function run(type, ctx = null) {
   const list = registry[type];
   if (!list) return;
 
