@@ -1,4 +1,5 @@
 import "./js/core/managers/index.js";
+import "./js/core/lifecycle/index.js";
 
 import { initRouter } from "./js/core/router/index.js";
 import initNavigationBar from "./js/features/navigationBar.js";
