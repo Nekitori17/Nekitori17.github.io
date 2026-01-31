@@ -26,10 +26,10 @@
       html {
         background: #050505;
       }
-      body {
+      body > main {
         visibility: hidden;
       }
-      body.palette-ready {
+      body > main.palette-ready {
         visibility: visible;
       }
     </style>
@@ -43,7 +43,7 @@
         <div class="lane"></div>
         <div class="hit-line"></div>
       </div>
-      <div class="perfect">PERFECT</div>
+      <div class="perfect">LOADING...</div>
 
       <style>
         #boot-loading {
@@ -113,8 +113,10 @@
           position: absolute;
           bottom: 120px;
           font-family: monospace;
+          font-size: larger;
           letter-spacing: 0.35em;
-          color: #e6f0ff;
+          color: #fffb00;
+          text-shadow: 0 0 10px #fffb00;
           opacity: 0;
         }
         .perfect.show {
@@ -180,21 +182,23 @@
       </script>
     </div>
 
-    <header class="header">
-      <div class="title">
-        <img src="/favicon.ico" alt="Nekitori17 logo" />
-        <h1>Nekitori17</h1>
-      </div>
-      <nav class="navigation">
-        <a id="home">.home(<i class="fa-solid fa-house-chimney"></i>)</a>
-        <a id="works">.works(<i class="fa-solid fa-briefcase"></i>)</a>
-        <a id="projects"
-          >.projects(<i class="fa-solid fa-diagram-project"></i>)</a
-        >
-        <a id="about">.about(<i class="fa-solid fa-circle-info"></i>)</a>
-      </nav>
-    </header>
-    <main class="container"></main>
-    <script type="module" src="/bootstrap.js"></script>
+    <main class="app">
+      <header class="header">
+        <div class="title">
+          <img src="/favicon.ico" alt="Nekitori17 logo" />
+          <h1>Nekitori17</h1>
+        </div>
+        <nav class="navigation">
+          <a id="home">.home(<i class="fa-solid fa-house-chimney"></i>)</a>
+          <a id="works">.works(<i class="fa-solid fa-briefcase"></i>)</a>
+          <a id="projects"
+            >.projects(<i class="fa-solid fa-diagram-project"></i>)</a
+          >
+          <a id="about">.about(<i class="fa-solid fa-circle-info"></i>)</a>
+        </nav>
+      </header>
+      <div class="container"></div>
+      <script type="module" src="/bootstrap.js"></script>
+    </main>
   </body>
 </html>

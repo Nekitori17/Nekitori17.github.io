@@ -6,7 +6,7 @@ export function loadPalette(paletteName) {
   return new Promise((resolve) => {
     const link = document.querySelector("#color-palette");
     if (!(link instanceof HTMLLinkElement)) {
-      document.body.classList.add("palette-ready");
+      document.querySelector("body > main")?.classList.add("palette-ready");
       resolve();
       return;
     }
@@ -14,7 +14,7 @@ export function loadPalette(paletteName) {
     const href = `/css/palettes/${paletteName}.css`;
 
     if (link.href.includes(href) && link.sheet) {
-      document.body.classList.add("palette-ready");
+      document.querySelector("body > main")?.classList.add("palette-ready");
       resolve();
       return;
     }
@@ -22,7 +22,7 @@ export function loadPalette(paletteName) {
     link.addEventListener(
       "load",
       () => {
-        document.body.classList.add("palette-ready");
+        document.querySelector("body > main")?.classList.add("palette-ready");
         resolve();
       },
       { once: true },
@@ -31,7 +31,7 @@ export function loadPalette(paletteName) {
     link.addEventListener(
       "error",
       () => {
-        document.body.classList.add("palette-ready");
+        document.querySelector("body > main")?.classList.add("palette-ready");
         resolve();
       },
       { once: true },
