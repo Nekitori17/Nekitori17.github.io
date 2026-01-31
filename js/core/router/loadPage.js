@@ -79,5 +79,5 @@ function clearAutoLoadedScripts() {
     .querySelectorAll("script[data-page-script]")
     .forEach((s) => s.remove());
 
-  window.Manager.Timer.clearAll();
+  Timer.clearAll();
 }

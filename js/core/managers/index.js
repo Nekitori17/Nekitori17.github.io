@@ -3,7 +3,5 @@ import Timer from "./Timer.js";
 
 export { EventBus, Timer }
 
-window.Manager = {
-  EventBus,
-  Timer,
-};
+globalThis.EventBus = EventBus;
+globalThis.Timer = Timer;
