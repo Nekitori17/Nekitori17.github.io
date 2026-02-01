@@ -1,4 +1,5 @@
 import { run } from "../lifecycle/registry.js";
+import { waitForAllStyleSheet } from "../utils/waitForStylesheet.js";
 import delay from "./../utils/delay.js";
 
 /**@type {AbortController | null} */
@@ -57,6 +58,8 @@ export async function loadPage(pageName, container) {
     });
 
     container.appendChild(tpl.content);
+    await waitForAllStyleSheet(container);
+
     run("mounted");
 
     sessionStorage.setItem("pageSession", pageName);
@@ -64,7 +67,7 @@ export async function loadPage(pageName, container) {
     container.style.opacity = "1";
     await delay(300);
 
-    run("afterEnter")
+    run("afterEnter");
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") return;
 
