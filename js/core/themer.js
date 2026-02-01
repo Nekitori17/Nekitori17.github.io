@@ -2,41 +2,29 @@
  * @param {string} paletteName
  * @returns {Promise<void>}
  */
-export function loadPalette(paletteName) {
+export async function loadPalette(paletteName) {
+  const link = document.querySelector("#color-palette");
+
+  if (link instanceof HTMLLinkElement) {
+    await waitForStylesheet(link, `/css/palettes/${paletteName}.css`);
+  }
+
+  document.querySelector("body > main")?.classList.add("palette-ready");
+}
+
+/**
+ * @param {HTMLLinkElement} link
+ * @param {string} href
+ * @returns {Promise<void>}
+ */
+function waitForStylesheet(link, href) {
+  if (link.href.includes(href) && link.sheet) {
+    return Promise.resolve();
+  }
+
   return new Promise((resolve) => {
-    const link = document.querySelector("#color-palette");
-    if (!(link instanceof HTMLLinkElement)) {
-      document.querySelector("body > main")?.classList.add("palette-ready");
-      resolve();
-      return;
-    }
-
-    const href = `/css/palettes/${paletteName}.css`;
-
-    if (link.href.includes(href) && link.sheet) {
-      document.querySelector("body > main")?.classList.add("palette-ready");
-      resolve();
-      return;
-    }
-
-    link.addEventListener(
-      "load",
-      () => {
-        document.querySelector("body > main")?.classList.add("palette-ready");
-        resolve();
-      },
-      { once: true },
-    );
-
-    link.addEventListener(
-      "error",
-      () => {
-        document.querySelector("body > main")?.classList.add("palette-ready");
-        resolve();
-      },
-      { once: true },
-    );
-
+    link.addEventListener("load", () => resolve(), { once: true });
+    link.addEventListener("error", () => resolve(), { once: true });
     link.href = href;
   });
 }

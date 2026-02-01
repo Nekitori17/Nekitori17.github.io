@@ -14,7 +14,7 @@ const CHARACTER_STORAGE_KEY = "character";
  * @param {HTMLElement | null} titleElement
  * @param {HTMLElement | null} navBarElement
  */
-export function initCharacter(titleElement, navBarElement) {
+export async function initCharacter(titleElement, navBarElement) {
   EventBus.on(
     "characterChanged",
     /** @param {unknown} character */
@@ -30,7 +30,7 @@ export function initCharacter(titleElement, navBarElement) {
   else console.warn("Title element not found, title updater skipped.");
 
   const character = getInitialCharacter();
-  return applyCharacter(character, navBarElement);
+  await applyCharacter(character, navBarElement);
 }
 
 /**
@@ -54,13 +54,14 @@ function getInitialCharacter() {
  * @param {Character} character
  * @param {HTMLElement | null} navBarElement
  */
-function applyCharacter(character, navBarElement) {
+async function applyCharacter(character, navBarElement) {
   const displayName = toSpaceCase(character);
 
   setSiteNameFormat(`${displayName} - %siteName`);
   setTitleNameFormat(`${displayName} - %titleName`);
   hideElementByCharacter(character, navBarElement);
-  return loadPalette(character);
+  
+  await loadPalette(character);
 }
 
 /**

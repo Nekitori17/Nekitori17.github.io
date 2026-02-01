@@ -27,8 +27,4 @@ async function bootstrap() {
   }
 }
 
-function main() {
-  bootstrap();
-}
-
-main();
+(() => bootstrap())();
