@@ -1,14 +1,31 @@
+import delay from "../core/utils/delay.js";
+
 /**
- * @param {number} duration
+ * @returns {Promise<void>}
  */
-export function removeBootLoading(duration = 260) {
-  /** @type {HTMLElement | null} */
+export async function startPhase1() {
   const el = document.querySelector("#boot-loading");
   if (!el) return;
 
-  el.style.transition = `opacity ${duration}ms ease-in-out`;
-  el.style.opacity = "0";
-  el.style.pointerEvents = "none";
+  el.classList.add("boot-phase-1");
+  
+  await delay(1400);
+  
+  el.classList.remove("boot-phase-1");
+  el.classList.add("boot-hold");
+}
 
-  setTimeout(() => el.remove(), duration);
+/**
+ * @returns {Promise<void>}
+ */
+export async function removeBootLoading() {
+  const el = document.querySelector("#boot-loading");
+  if (!el) return;
+
+  el.classList.remove("boot-hold");
+  el.classList.add("boot-phase-2");
+
+  await delay(1050);
+  
+  el.remove();
 }

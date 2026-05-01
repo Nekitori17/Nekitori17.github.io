@@ -5,10 +5,14 @@ import { initRouter } from "./js/core/router/index.js";
 import initNavigationBar from "./js/modules/navigationBar.js";
 import { initCharacter } from "./js/modules/characterSwitch.js";
 
-import { removeBootLoading } from "./js/modules/bootLoading.js";
+import { startPhase1, removeBootLoading } from "./js/modules/bootLoading.js";
 
 async function bootstrap() {
   try {
+    // Wait for Phase 1 to finish (1.4s)
+    await startPhase1();
+
+    // Now page starts loading logic while holding
     initNavigationBar();
 
     await initCharacter(
@@ -23,8 +27,9 @@ async function bootstrap() {
   } catch (error) {
     console.error("[bootstrap error]", error);
   } finally {
-    removeBootLoading();
+    // Page is fully ready, start Phase 2 (1.05s)
+    await removeBootLoading();
   }
 }
 
-(() => bootstrap())();
+bootstrap();
