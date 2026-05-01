@@ -2,10 +2,10 @@ import "./js/core/managers/index.js";
 import "./js/core/lifecycle/index.js";
 
 import { initRouter } from "./js/core/router/index.js";
-import initNavigationBar from "./js/features/navigationBar.js";
-import { initCharacter } from "./js/features/characterSwitch.js";
+import initNavigationBar from "./js/modules/navigationBar.js";
+import { initCharacter } from "./js/modules/characterSwitch.js";
 
-import { removeBootLoading } from "./js/features/bootLoading.js";
+import { removeBootLoading } from "./js/modules/bootLoading.js";
 
 async function bootstrap() {
   try {

@@ -34,3 +34,9 @@ export function run(type, ctx = null) {
 export function clear(type) {
   registry[type].length = 0;
 }
+
+export function clearAll() {
+  registry.mounted.length = 0;
+  registry.unmounted.length = 0;
+  registry.afterEnter.length = 0;
+}

@@ -1,4 +1,4 @@
 export default {
   DEFAULT_PAGE: "home",
-  MAX_MOBILE_WIDTH: 786,  
-}
+  MAX_MOBILE_WIDTH: 768,
+};

@@ -1,5 +1,5 @@
-import { getCurrentPageSession } from "./../core/router/session.js";
-import { toSpaceCase } from "./../core/utils/translateCase.js";
+import { getCurrentPageSession } from "../core/router/session.js";
+import { toSpaceCase } from "../core/utils/translateCase.js";
 
 /** @type {HTMLElement | null} */
 let slotElement = null;

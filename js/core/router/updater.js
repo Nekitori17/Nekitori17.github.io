@@ -1,4 +1,4 @@
-import { toSpaceCase } from "./../utils/translateCase.js"
+import { toSpaceCase } from "./../utils/translateCase.js";
 
 let format = "%siteName";
 
@@ -9,7 +9,7 @@ let format = "%siteName";
 export function updateSiteName(pageName, callback) {
   const siteName = toSpaceCase(pageName);
   
-  const fullSiteName = format.replaceAll("%siteName", siteName)
+  const fullSiteName = format.replaceAll("%siteName", siteName);
   document.title = fullSiteName;
 
   if (typeof callback === "function") callback(fullSiteName);

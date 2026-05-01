@@ -1,4 +1,4 @@
-import { run } from "../lifecycle/registry.js";
+import { run, clearAll } from "../lifecycle/registry.js";
 import { waitForAllStyleSheet } from "../utils/waitForStylesheet.js";
 import delay from "./../utils/delay.js";
 
@@ -20,7 +20,6 @@ export async function loadPage(pageName, container) {
   try {
     const res = await fetch(pageSrc, {
       signal: pageAbortController.signal,
-      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -35,6 +34,7 @@ export async function loadPage(pageName, container) {
     await delay(300);
 
     run("unmounted");
+    clearAll();
     clearAutoLoadedScripts();
     container.replaceChildren();
 
@@ -72,6 +72,7 @@ export async function loadPage(pageName, container) {
     if (err instanceof DOMException && err.name === "AbortError") return;
 
     console.error(err);
+    window.location.href = "/404.html";
   } finally {
     document.body.style.overflow = "auto";
   }

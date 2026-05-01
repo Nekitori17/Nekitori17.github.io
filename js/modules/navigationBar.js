@@ -1,7 +1,7 @@
 import constants from "../constants.js";
 
 export default () => {
-  let prevScrollPos = window.pageYOffset;
+  let prevScrollPos = window.scrollY;
 
   /** @type {HTMLElement | null} */
   const header = document.querySelector(".header");
@@ -10,7 +10,7 @@ export default () => {
 
   window.addEventListener("scroll", () => {
     if (window.innerWidth <= constants.MAX_MOBILE_WIDTH && header) {
-      const currentScrollPos = window.pageYOffset;
+      const currentScrollPos = window.scrollY;
       header.style.bottom = currentScrollPos > prevScrollPos ? "-100%" : "0";
       prevScrollPos = currentScrollPos;
     }
